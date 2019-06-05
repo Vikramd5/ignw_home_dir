@@ -1,0 +1,19 @@
+---
+  - name: some config commands
+    gather_facts: no
+    hosts: csr
+    vars:
+      credentials:
+        host: "{{ ansible_host }}"
+        username: "{{username}}"
+        password: "{{password}}"
+    tasks:
+      - name: first config
+        ios_config:
+          provider: "{{credentials}}"
+          lines: description hahahhahahah
+          parents: interface GigabitEthernet2
+        register: route_output
+      - name: print routes
+        debug:
+          msg: "{{route_output}}"
